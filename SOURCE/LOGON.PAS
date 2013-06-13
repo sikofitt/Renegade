@@ -427,7 +427,8 @@ BEGIN
     Inc(Tries);
     IF (Tries >= General.MaxLogonTries) THEN
     BEGIN
-      IF (General.NewUserToggles[20] = 0) OR (General.ForgotPWQuestion = '') OR (ThisUser.ForgotPWAnswer = '') THEN
+      IF (General.NewUserToggles[20] = 0) OR (RGMainStr(6, TRUE) = '') 
+         {(General.ForgotPWQuestion = '')} OR (ThisUser.ForgotPWAnswer = '') THEN
         HangUp := TRUE
       ELSE
       BEGIN

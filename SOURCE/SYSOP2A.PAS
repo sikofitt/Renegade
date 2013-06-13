@@ -375,7 +375,7 @@ BEGIN
         'K' : BEGIN
                 REPEAT
                   RGSysCfgStr(15,FALSE);
-                  OneK(Cmd,^M'123456',TRUE,TRUE);
+                  OneK(Cmd,^M'123456Q',TRUE,TRUE);
                   CASE Cmd OF
                     '1' : FindMenu(RGSysCfgStr(16,TRUE),GlobalMenu,0,NumMenus,Changed);
                     '2' : FindMenu(RGSysCfgStr(17,TRUE),AllStartMenu,1,NumMenus,Changed);
@@ -384,7 +384,7 @@ BEGIN
                     '5' : FindMenu(RGSysCfgStr(20,TRUE),MessageReadMenu,1,NumMenus,Changed);
                     '6' : FindMenu(RGSysCfgStr(21,TRUE),FileListingMenu,1,NumMenus,Changed);
                   END;
-                UNTIL (Cmd = ^M) OR (HangUp);
+                UNTIL (Cmd IN [^M,'Q']) OR (HangUp);
                 Cmd := #0;
               END;
         'L' : InputWN1(RGSysCfgStr(22,TRUE),BulletPrefix,(SizeOf(BulletPrefix) - 1),[InterActiveEdit,UpperOnly],Changed);

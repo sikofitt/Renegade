@@ -1338,7 +1338,8 @@ BEGIN
                   'Z' : BEGIN
                           Print('Question:');
                           NL;
-                          Print(General.ForgotPWQuestion);
+                          {Print(General.ForgotPWQuestion);}
+                          Print(RGMainStr(6,TRUE));
                           NL;
                           Print('Enter new forgot password answer.');
                           Prt(': ');

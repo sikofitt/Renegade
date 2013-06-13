@@ -60,8 +60,8 @@ BEGIN
       PrintACR('^1R. Ask if EXPERT MODE is needed        : ^5'+ShowYesNo(NewUserToggles[18] <> 0));
       NewUserToggles[19] := 9;
       PrintACR('^1S. Ask FORGOT PW question              : ^5'+ShowYesNo(NewUserToggles[20] <> 0));
-      IF (ForgotPWQuestion <> '') THEN
-        PrintACR('^1   ('+ForgotPWQuestion+')');
+      IF (RGMainStr(6, TRUE) <> '') THEN
+        {PrintACR('^1   ('+ForgotPWQuestion+')');} PrintACR('^1 ('+ RGMainStr(6,TRUE) + ')');
     END;
     MCIAllowed := TRUE;
     Prt('%LFEnter selection [^5A^4-^5P^4,^5R^4-^5S^4,^5Q^4=^5Quit^4]: ');
@@ -114,7 +114,7 @@ BEGIN
        'R' : NewUserToggles[18] := Toggle(NewUserToggles[18],28);
        'S' : BEGIN
                NewUserToggles[20] := Toggle(NewUserToggles[20],30);
-               IF (NewUserToggles[20] = 0) THEN
+               (*)IF (NewUserToggles[20] = 0) THEN
                  ForgotPWQuestion := ''
                ELSE
                BEGIN
@@ -125,7 +125,7 @@ BEGIN
                  UNTIL (TempStr <> '') OR (HangUp);
                  IF (Changed) THEN
                    ForgotPWQuestion := TempStr;
-               END;
+               END; *)
              END;
       END;
   UNTIL (Cmd = 'Q') OR (HangUp);
