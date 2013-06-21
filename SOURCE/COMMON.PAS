@@ -265,6 +265,10 @@ CONST
   LastWFCX: Byte = 1;
   LastWFCY: Byte = 1;
   ANSIDetected: Boolean = FALSE;
+{ Added June 21, 2013 //sk5 }
+  PauseIsNull : Boolean = FALSE; { Added for null pause }
+  BuildDate   : Array [1..5] of Word = ( 5, 27, 2013, 9, 19 ); { Build date MM, DD, YYYY, HR, MIN }
+
 VAR
   LightBarArray: ARRAY[1..50] OF LightBarRecordType;
   LightBarCmd,
@@ -291,6 +295,14 @@ VAR
   General: GeneralRecordType;      { configuration information       }
 
   DirInfo: SearchRec;
+
+  { LastCallers }
+  LastCallerFile : FILE OF LastCallerRec;
+  LastCallers    : LastCallerRec;
+
+  { Today's History }
+  HistoryFile : FILE OF HistoryRecordType;
+  HistoryRec  : HistoryRecordType;
 
   { Voting Variables }
   VotingFile: FILE OF VotingRecordType;
@@ -3362,19 +3374,26 @@ BEGIN
       CASE s[i] OF
         '%' : IF MCIAllowed AND (i + 1 < Length(s)) THEN
               BEGIN
-                IF (UpCase(s[i + 1]) = 'P') AND (UpCase(s[i + 2]) = 'A') THEN
+                IF (UpCase(s[i + 1]) = 'P') AND (UpCase(s[i + 2]) = 'A') THEN { %PA Pause }
                 BEGIN
                   Inc(i,2);
                   PauseScr(FALSE)
                 END
+                ELSE IF (UpCase(s[i + 1]) = 'P') AND (UpCase(s[i + 2]) = 'E') THEN { %PE Null Pause }
+                  BEGIN
+                    Inc(i,2);
+                    PauseIsNull := TRUE;
+                    PauseScr(FALSE);
+                    PauseIsNull := FALSE;
+                  END
                 ELSE IF (UpCase(s[i + 1]) = 'D') THEN
-                  IF (UpCase(s[i + 2]) = 'E') THEN
+                  IF (UpCase(s[i + 2]) = 'E') THEN { %DE Delay }
                   BEGIN
                     Inc(i,2);
                     OutKey(' '); OutKey(#8); { guard against +++ }
                     Delay(800);
                   END
-                  ELSE IF ((UpCase(s[i + 2]) = 'F') AND (NOT PrintingFile)) THEN
+                  ELSE IF ((UpCase(s[i + 2]) = 'F') AND (NOT PrintingFile)) THEN { %DF File Include }
                   BEGIN
                     cs := ''; Inc(i, 3);
                     WHILE (i < Length(s)) AND (s[i] <> '%') DO
@@ -4483,8 +4502,11 @@ BEGIN
     { Prompt(FString.Continue) }
     lRGLngStr(44,FALSE)
   ELSE
-    { Prompt({FString.lPause); }
-    lRGLngStr(5,FALSE);
+    BEGIN
+      IF NOT (PauseIsNull) THEN
+      { Prompt({FString.lPause); }
+      lRGLngStr(5,FALSE);
+    END;
   LIL := 1;
   IF (IsCont) THEN
   BEGIN
@@ -4667,6 +4689,7 @@ BEGIN
                   '3' : Add := IntToStr(LowMsgArea);
                   '4' : Add := IntToStr(HighMsgArea);
                   'B' : Add := FormatNumber(lCredit - Debit);
+                  'C' : Add := Copy(Ph,1,3);
                   'D' : Add := Street;
                   'O' : BEGIN
                           IF (PrintingFile) OR (Reading_A_Msg) THEN
@@ -4742,6 +4765,7 @@ BEGIN
                   'N' : Add := Copy(RealName,1,(Pos(' ', RealName) - 1));
                   'P' : Add := FormatNumber(FilePoints);
                   'S' : Add := AOnOff(NewScanFileArea,'','not ');
+                  'T' : Add := IntToStr(NumFileAreas);
                 END;
           'G' : CASE UpCase(S[Index + 2]) OF
                   'N' : AOnOff((Sex = 'M'),'Mr.','Ms.');
@@ -4799,9 +4823,11 @@ BEGIN
                   'O' : Add := IntToStr((GetPackDateTime - TimeOn) DIV 60);
                   'R' : Add := IntToStr(HiMsg - Msg_On);
                   'S' : Add := AOnOff(LastReadRecord.NewScan,'','not ');
+                  'T' : Add := IntToStr(NumMsgAreas);
                 END;
           'N' : CASE UpCase(S[Index + 2]) OF
                   'D' : Add := IntToStr(ThisNode);
+                  'L' : Add := '';
                   'M' : Add := ShowOnOff(General.NetworkMode);
                   'R' : IF (Downloads > 0) THEN
                           Str((Uploads / Downloads):3:3,Add)
@@ -4832,6 +4858,16 @@ BEGIN
                         ELSE
                           Add := 'Open';
                   '9' : Add := ShowOnOff(Color IN Flags);
+                  'S' : BEGIN
+                         CASE Tasker OF
+                          None     : Add := 'DOS';
+                          DV       : Add := 'DV';
+                          Win      : Add := 'Windows';
+                          OS2      : Add := 'OS/2';
+                          Win32    : Add := 'Windows 32bit';
+                          Dos5N    : Add := 'DOS/N';
+                         END;
+                        END;
                 END;
           'P' : CASE UpCase(S[Index + 2]) OF
                   '1' : Add := General.MsgPath;
@@ -4871,9 +4907,14 @@ BEGIN
                   '1' : Add := lRGLngStr(41,TRUE); {FString.UserDefEd[Ord(S[Index + 2]) - 48]; }
                   '2' : Add := lRGLngStr(42,TRUE); {FString.UserDefEd[Ord(S[Index + 2]) - 48]; }
                   '3' : Add := lRGLngStr(43,TRUE); {FString.UserDefEd[Ord(S[Index + 2]) - 48]; }
+                  'A' : Add := AOnOff((SysOpAvailable), 'available','unavailable' );
                   'C' : Add := FormatNumber(General.CallerNum);
+                  'D' : Add := IntToStr(General.TotalDloads);
                   'L' : Add := IntToStr(SL);
+                  'M' : Add := IntToStr(General.TotalUsage);
                   'N' : Add := General.SysopName;
+                  'P' : Add := IntToStr(General.TotalPosts);
+                  'U' : Add := IntToStr(General.TotalUloads);
                   'X' : Add := AOnOff((Sex = 'M'),'Male','Female');
                 END;
           'T' : CASE UpCase(S[Index + 2]) OF
@@ -4882,11 +4923,27 @@ BEGIN
                   'B' : Add := FormatNumber(TimeBank);
                   'C' : Add := FormatNumber(LoggedOn);
                   'D' : Add := FormatNumber(DLToday);
+                  'G' : Add := GetTagLine;
                   'I' : Add := TimeStr;
                   'K' : Add := ConvertBytes(DLKToday * 1024,FALSE);
                   'L' : Add := CTim(NSL);
                   'N' : Add := Liner.NodeTelnetURL;
                   'O' : Add := IntToStr(General.TimeAllow[SL] - TLToday);
+                  'S' : BEGIN
+                          Assign(HistoryFile, General.DataPath+'HISTORY.DAT');
+                          {$I-} Reset(HistoryFile); {$I+}
+                          IF (IOResult <> 0) THEN
+                            BEGIN
+                             Add := 'Error With HISTORY.DAT, Inform ' + General.SysOpName + '!';
+                            END
+                          ELSE
+                            BEGIN
+                              Seek(HistoryFile, (FileSize(HistoryFile)-1));
+                              Read(HistoryFile, HistoryRec);
+                              Add := IntToStr(HistoryRec.Callers);
+                              Close(HistoryFile);
+                            END;
+                        END;
                   'T' : Add := FormatNumber(TTimeOn);
                   'U' : Add := IntToStr(General.NumUsers);
                 END;
@@ -4983,7 +5040,7 @@ BEGIN
   END
   ELSE
   BEGIN
-{$IFDEF MSDOS}  
+{$IFDEF MSDOS}
     FillChar(Regs,SizeOf(Regs),#0);
     Regs.Ah := $36;
     Regs.Dl := ExtractDriveNumber(DrivePath);

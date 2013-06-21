@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {$IFDEF WIN32}
 {$I DEFINES.INC}
 {$ENDIF}
