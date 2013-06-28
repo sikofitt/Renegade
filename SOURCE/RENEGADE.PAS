@@ -67,7 +67,7 @@ USES
 {$O ShortMsg  } {$O CUser     } {$O Doors     } {$O ExecBat   } {$O Automsg   }
 {$O MyIO      } {$O Menus2    } {$O Menus3    } {$O LineChat  } {$O Stats      }
 {$O Events    } {$O BBSList   } {$O Common4   } {$O File7     } {$O SplitCha  }
-{$O Sysop2o   } {$O Sysop5   }  {$O SysOp12   }
+{$O Sysop2o   } {$O Sysop5   }  {$O SysOp12   } {$O OneLiner  }
 
 CONST
   NeedToHangUp: Boolean = FALSE;

@@ -38,6 +38,7 @@ USES
   CUser,
   Doors,
   Email,
+  Events,
   File0,
   File1,
   File2,
@@ -81,7 +82,8 @@ USES
   SysOp12,
   TimeBank,
   TimeFunc,
-  Vote;
+  Vote,
+  OneLiner;
 
 
     (*
@@ -653,6 +655,9 @@ BEGIN
           ELSE
             NoCmd := TRUE;
           END;
+    '1' : CASE Cmd[2] OF
+            'L' : DoOneLiners;
+          END;
     'A' : CASE Cmd[2] OF
             'A','C','M','T' :
                   DoArcCommand(Cmd[2]);
@@ -971,6 +976,18 @@ BEGIN
                     SysOpLog('* Conference Editor');
                     ConferenceEditor;
                   END;
+            'T' : IF (CheckPW) THEN
+                   BEGIN
+                    mem[Seg0040:$0017] := mem[Seg0040:$0017] XOR 16;
+                     IF (SysOpAvailable) THEN
+                       BEGIN
+                       SysOpLog('* Turned on chat availablity');
+                       END
+                     ELSE
+                      BEGIN
+                       SysOpLog('* Turned off chat availablity');
+                      END;
+                   END;
             'U' : IF (CheckPW) THEN
                   BEGIN
                     SysOpLog('* User Editor');
