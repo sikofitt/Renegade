@@ -665,7 +665,7 @@ BEGIN
    BEGIN
     NL;
     Print('There was an error displaying an ASCII file.  Let the sysop know so they can investigate.');
-    SysOpLog('Some ASCII Files are missing for editing the bbslist.  Investigate ...')
+    SysOpLog('Some ASCII Files are missing for editing the bbslist.  Investigate ...');
    END;
 END;
 
