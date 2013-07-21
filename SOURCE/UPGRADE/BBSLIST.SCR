@@ -4,34 +4,39 @@
 # Anything after a '#' is considered a comment and is ignored.
 # Anything That doesn't begin with a [ is ignored.
 #
-# [BBSName]: BBS Name
-# [SysOpName]: Sysop Name
-# [MaxNodes]: Max Nodes
-# [Port]: Telnet Port
-# [TelnetUrl]: Telnet Url
-# [WebSiteUrl]: Website
-# [PhoneNumber]: BBS Phone Number
-# [Location]: Location of BBS
-# [Software]: BBS Software Used
-# [SoftwareVersion]: BBS Software Version
-# [OS]: Operating System of BBS
-# [Speed]: Speed of the BBS
-# [Hours]: Hours of Operation
-# [Birth]: When the bbs started
-# [Description]: Description
-# [Description2]: Description 2
-# [SDA]: SysOp Definable String 8
-# [SDB]: SysOp Definable String 30
-# [SDC]: SysOp Definable String 30
-# [SDD]: SysOp Definable String 40
-# [SDE]: SysOp Definable String 60
-# [SDF]: SysOp Definable String 60
-# [SDG]: SysOp Definable Number
-# [SDH]: SysOp Definable Yes/No (Default Yes)
-# [SDI]: SysOp Definable Yes/No (Default No)
-
-
-
+# The ~ Codes in parenthases are MCIs to access the values
+# (~BN) [BBSName]: BBS Name
+# (~SN) [SysOpName]: Sysop Name
+# (~MN) [MaxNodes]: Max Nodes
+# (~BP) [Port]: Telnet Port
+# (~TN) [TelnetUrl]: Telnet Url
+# (~WS) [WebSiteUrl]: Website
+# (~PN) [PhoneNumber]: BBS Phone Number
+# (~LO) [Location]: Location of BBS
+# (~SW) [Software]: BBS Software Used
+# (~SV) [SoftwareVersion]: BBS Software Version
+# (~OS) [OS]: Operating System of BBS
+# (~SP) [Speed]: Speed of the BBS
+# (~HR) [Hours]: Hours of Operation
+# (~ST) [Birth]: When the bbs started
+# (~DS) [Description]: Description
+# (~D2) [Description2]: Description 2
+# (~SA) [SDA]: SysOp Definable String 8
+# (~SB) [SDB]: SysOp Definable String 30
+# (~SC) [SDC]: SysOp Definable String 30
+# (~SD) [SDD]: SysOp Definable String 40
+# (~SE) [SDE]: SysOp Definable String 60            
+# (~SF) [SDF]: SysOp Definable String 60
+# (~SG) [SDG]: SysOp Definable Number
+# (~SH) [SDH]: SysOp Definable Yes/No (Default Yes)
+# (~SI) [SDI]: SysOp Definable Yes/No (Default No)
+# !! Extra Display Codes !!
+# (~AC) : Area Code
+# (~DA) : Date Added
+# (~DE) : Date Edited
+# (~RN) : Record Number
+# (~UN) : User who added record
+#
 # if you want to ask the questions in a certain order change the order.
 # if you don't want to ask a question then leave it out.
 #
