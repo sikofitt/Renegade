@@ -932,25 +932,36 @@ TYPE
 
   BBSListRecordType =          { *.BBS file records }
 {$IFDEF WIN32} PACKED {$ENDIF} RECORD
-    RecordNum: LongInt;        { Number OF the Record For Edit }
-    UserID: LongInt;           { User ID OF person adding this }
-    BBSName: STRING[30];       { Name OF BBS                   }
-    SysOpName: STRING[30];     { SysOp OF BBS                  }
-    TelnetUrl: STRING[60];     { Telnet Urls                   }
-    WebSiteUrl: STRING[60];    { Web Site Url                  }
-    PhoneNumber: STRING[20];   { Phone number OF BBS           }
-    Software: STRING[8];       { Software used by BBS          }
-    Speed: STRING[8];          { Highest connect speed OF BBS  }
-    Description: STRING[60];   { Description OF BBS            }
-    Description2: STRING[60];  { Second line OF descrition     }
-    DateAdded: UnixTime;       { Date entry was added          }
-    DateEdited: UnixTime;      { Date entry was last edited    }
-    XA: STRING[8];             { sysop definable A             }
-    XB: STRING[30];            { sysop definable B             }
-    XC: STRING[30];            { sysop definable C             }
-    XD: STRING[40];            { sysop definable D             }
-    XE: STRING[60];            { sysop definable E             }
-    XF: STRING[60];            { sysop definable F             }
+    RecordNum,                    { Number OF the Record For Edit }
+    UserID,                       { User ID OF person adding this }
+    MaxNodes        : LongInt;    { Maximum Number Of Nodes       }
+    Port            : Word;       { Telnet Port                   }
+    BBSName         : STRING[30]; { Name OF BBS                   }
+    SysOpName       : STRING[30]; { SysOp OF BBS                  }
+    TelnetUrl       : STRING[60]; { Telnet Urls                   }
+    WebSiteUrl      : STRING[60]; { Web Site Url                  }
+    PhoneNumber     : STRING[20]; { Phone number OF BBS           }
+    Location        : STRING[30]; { Location of BBS               }
+    Software,                     { Software used by BBS          }
+    SoftwareVersion : String[12]; { Software Version of BBS       }
+    OS              : STRING[20]; { Operating System of BBS       }
+    Speed           : STRING[8];  { Highest connect speed OF BBS  }
+    Hours           : STRING[20]; { Hours of Operation            }
+    Birth           : STRING[10]; { When the BBS Began            }
+    Description     : STRING[60]; { Description OF BBS            }
+    Description2    : STRING[60]; { Second line OF descrition     }
+    DateAdded       : UnixTime;   { Date entry was added          }
+    DateEdited      : UnixTime;   { Date entry was last edited    }
+    SDA             : STRING[8];  { sysop definable A             }
+    SDB             : STRING[30]; { sysop definable B             }
+    SDC             : STRING[30]; { sysop definable C             }
+    SDD             : STRING[40]; { sysop definable D             }
+    SDE             : STRING[60]; { sysop definable E             }
+    SDF             : STRING[60]; { sysop definable F             }
+    SDG             : Word;       { sysop definable G             }
+    SDH,                          { sysop definable H             }
+    SDI             : Boolean;    { sysop definable I             }
+
   END;
 
   MenuFlagType =
