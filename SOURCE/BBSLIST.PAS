@@ -627,11 +627,7 @@ BEGIN
         ReadBuffer('BBSLEM');
         DisplayBuffer(BBSListMCI,@BBSList,Data2);
         NL;
-<<<<<<< HEAD
-        IF (PYNQ(' |03Would you like to edit this BBS Listing? |11',0,TRUE)) THEN
-=======
         IF (PYNQ(' Would you like to edit this BBS Listing? ',0,TRUE)) THEN
->>>>>>> testing
 
         BEGIN
           BBSListScriptFile(BBSList);
@@ -642,11 +638,7 @@ BEGIN
             DisplayBuffer(BBSListMCI,@BBSList,Data2);
             PrintF('BBSNT');
             NL;
-<<<<<<< HEAD
-            IF (PYNQ(' |03Would you like to save this BBS Listing? |11',0,TRUE)) THEN
-=======
             IF (PYNQ(' Would you like to save this BBS Listing? ',0,TRUE)) THEN
->>>>>>> testing
             BEGIN
               Seek(BBSListFile,(Edit -1));
               BBSList.DateEdited := GetPackDateTime;
@@ -740,11 +732,7 @@ BEGIN
       PrintF('BBSLET');
       NL;
       MPL(FileSize(BBSListFile));
-<<<<<<< HEAD
-      InputLongIntWOC(' View which BBS? :',Edit,[],1,FileSize(BBSListFile));
-=======
       InputLongIntWOC(' View which BBS? ',Edit,[],1,FileSize(BBSListFile));
->>>>>>> testing
 
       Abort := (Edit <> 0 );
 
