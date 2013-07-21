@@ -660,7 +660,13 @@ BEGIN
       Print(' You may only edit BBS Listing''s that you have entered.');
       SysOpLog('Tried to edit a BBS Listing.');
     END;
-  END;
+  END
+  ELSE
+   BEGIN
+    NL;
+    Print('There was an error displaying an ASCII file.  Let the sysop know so they can investigate.');
+    SysOpLog('Some ASCII Files are missing for editing the bbslist.  Investigate ...');
+   END;
 END;
 
 PROCEDURE BBSList_View;
