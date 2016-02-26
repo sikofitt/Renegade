@@ -1,3 +1,5 @@
+## This project hasn't been touched in 3+ years.  Currently I don't think there are any plans to continue developing the code base.
+
 Renegade v1.19
 ==============
 
