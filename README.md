@@ -1,13 +1,8 @@
-## This project hasn't been touched in 3+ years.  Currently I don't think there are any plans to continue developing the code base.
-
-Renegade v1.19
+Renegade BBS Source COde http://rgbbs.info
 ==============
 
-This is a port of the current version of Renegade: v1.19.  My port of the older Y2Ka2 version can be found here: https://github.com/rickparrish/Renegade<br />
-<br />
-This is a fork of the official v1.19 release, which can be found here: https://github.com/Renegade-Exodus/RG119SRC<br />
-
 ==============================
+
 Copyright Cott Lang, Patrick Spence, Gary Hall, Jeff Herrings, T.J. McMillen, Chris Hoppman, and Lee Palmer<br />
 Ported to Win32 by Rick Parrish<br />
 
