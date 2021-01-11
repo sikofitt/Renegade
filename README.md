@@ -1,4 +1,4 @@
-Renegade BBS Source COde http://rgbbs.info
+Renegade BBS Source Code http://rgbbs.info
 ==============
 
 ==============================
