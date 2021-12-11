@@ -1,4 +1,4 @@
-Renegade BBS Source Code http://rgbbs.info
+Renegade BBS Source Code For v1.19/DOS - Current non-source builds are located @ http://rgbbs.info
 ==============
 
 ==============================
