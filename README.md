@@ -3,7 +3,7 @@ Renegade BBS Source Code For v1.19/DOS - Current non-source builds are located @
 
 ==============================
 
-Copyright Cott Lang, Patrick Spence, Gary Hall, Jeff Herrings, T.J. McMillen, Chris Hoppman, and Lee Palmer<br />
+Copyright Cott Lang, Patrick Spence, Gary Hall, Jeff Herrings, T.J. McMillen, Chris Hoppman, Lee Palmer, Lee Woodridge<br />
 Ported to Win32 by Rick Parrish<br />
 
 <hr />
